@@ -1,0 +1,35 @@
+# Node.js dependencies
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# dotenv environment variables file
+.env
+
+# coverage reports
+coverage/
+
+# IDE or Editor folders/files (you can adjust this based on your editor)
+.vscode/
+.idea/
+
+# Build output
+/dist
+/build
+
+# Docker-related files
+docker-compose.override.yml
+.dockerignore
+
+# npm package lock files (if you prefer using yarn, you can ignore package-lock.json)
+package-lock.json
+
+# Optional: Ignore logs or other temporary files
+*.log
