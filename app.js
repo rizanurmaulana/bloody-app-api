@@ -6,6 +6,7 @@ import sequelize from "./config/config.js";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import scheduleRoutes from "./routes/scheduleRoutes.js";
+import articleRoutes from "./routes/articleRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -37,6 +38,7 @@ const init = async () => {
     app.use("/api/v1", authRoutes);
     app.use("/api/v1", userRoutes);
     app.use("/api/v1", scheduleRoutes);
+    app.use("/api/v1", articleRoutes);
 
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
