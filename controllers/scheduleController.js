@@ -9,7 +9,7 @@ export const createSchedule = async (req, res) => {
 
   try {
     const user = await User.findByPk(pmi_id);
-    if (!user || user.role !== "hospital") {
+    if (!user || user.role !== "pmi") {
       return res.status(400).json({
         status: "error",
         message: "Invalid PMI ID: user not found or not a PMI",
@@ -50,7 +50,7 @@ export const getAllSchedules = async (req, res) => {
           model: User,
           as: "pmi",
           attributes: ["id", "fullname", "role"],
-          where: { role: "hospital" },
+          where: { role: "pmi" },
           required: true, // memastikan hanya yang relasi PMI valid
         },
       ],
@@ -81,7 +81,7 @@ export const getScheduleById = async (req, res) => {
           model: User,
           as: "pmi",
           attributes: ["id", "fullname", "role"],
-          where: { role: "hospital" },
+          where: { role: "pmi" },
           required: true,
         },
       ],
