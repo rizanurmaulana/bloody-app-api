@@ -9,21 +9,21 @@ router.post(
   "/schedule",
   upload.single("image"),
   authMiddleware.authenticate,
-  authMiddleware.authorizeRole(["admin", "hospital", "donor"]),
+  authMiddleware.authorizeRole(["admin", "pmi", "donor"]),
   scheduleController.createSchedule
 );
 
 router.get(
   "/schedule",
   authMiddleware.authenticate,
-  authMiddleware.authorizeRole(["admin", "hospital", "donor"]),
+  authMiddleware.authorizeRole(["admin", "pmi", "donor"]),
   scheduleController.getAllSchedules
 );
 
 router.get(
   "/schedule/:id",
   authMiddleware.authenticate,
-  authMiddleware.authorizeRole(["admin", "hospital", "donor"]),
+  authMiddleware.authorizeRole(["admin", "pmi", "donor"]),
   scheduleController.getScheduleById
 );
 
@@ -31,7 +31,7 @@ router.put(
   "/schedule/:id",
   upload.single("image"),
   authMiddleware.authenticate,
-  authMiddleware.authorizeRole(["admin", "hospital", "donor"]),
+  authMiddleware.authorizeRole(["admin", "pmi", "donor"]),
   scheduleController.updateScheduleById
 );
 

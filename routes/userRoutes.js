@@ -7,35 +7,35 @@ const router = express.Router();
 router.post(
   "/user",
   authMiddleware.authenticate,
-  authMiddleware.authorizeRole(["admin", "hospital", "donor"]),
+  authMiddleware.authorizeRole(["admin", "pmi", "donor"]),
   userController.createUser
 );
 
 router.get(
   "/user",
   authMiddleware.authenticate,
-  authMiddleware.authorizeRole(["admin", "hospital", "donor"]),
+  authMiddleware.authorizeRole(["admin", "pmi", "donor"]),
   userController.getAllUsers
 );
 
 router.get(
   "/user/:id",
   authMiddleware.authenticate,
-  authMiddleware.authorizeRole(["admin", "hospital", "donor"]),
+  authMiddleware.authorizeRole(["admin", "pmi", "donor"]),
   userController.getUserById
 );
 
 router.put(
   "/user/:id",
   authMiddleware.authenticate,
-  authMiddleware.authorizeRole(["admin", "hospital", "donor"]),
+  authMiddleware.authorizeRole(["admin", "pmi", "donor"]),
   userController.updateUserById
 );
 
 router.put(
   "/user/:id/password",
   authMiddleware.authenticate,
-  authMiddleware.authorizeRole(["admin", "hospital", "donor"]),
+  authMiddleware.authorizeRole(["admin", "pmi", "donor"]),
   userController.updateUserPassword
 );
 
