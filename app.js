@@ -7,6 +7,7 @@ import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import scheduleRoutes from "./routes/scheduleRoutes.js";
 import articleRoutes from "./routes/articleRoutes.js";
+import userDetailRoutes from "./routes/userDetailRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -39,6 +40,7 @@ const init = async () => {
     app.use("/api/v1", userRoutes);
     app.use("/api/v1", scheduleRoutes);
     app.use("/api/v1", articleRoutes);
+    app.use("/api/v1", userDetailRoutes);
 
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
