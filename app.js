@@ -11,6 +11,7 @@ import userDetailRoutes from "./routes/userDetailRoutes.js";
 import registrationRoutes from "./routes/registrationRoutes.js";
 
 const app = express();
+const HOST = process.env.HOST || "0.0.0.0";
 const PORT = process.env.PORT || 3000;
 
 app.use(
@@ -44,8 +45,12 @@ const init = async () => {
     app.use("/api/v1", userDetailRoutes);
     app.use("/api/v1", registrationRoutes);
 
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
+    app.get("/", (req, res) => {
+      res.send("Hello from Express");
+    });
+
+    app.listen(PORT, HOST, () => {
+      console.log(`Server is running at http://${HOST}:${PORT}`);
     });
   } catch (error) {
     console.error("Unable to connect to the database:", error);
