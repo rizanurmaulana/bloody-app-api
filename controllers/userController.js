@@ -101,6 +101,7 @@ export const getUserById = async (req, res) => {
 export const updateUserById = async (req, res) => {
   const { id } = req.params;
   const updates = req.body;
+  console.log(req.userId);
 
   try {
     const user = await User.findByPk(id);
@@ -111,7 +112,7 @@ export const updateUserById = async (req, res) => {
       });
     }
 
-    if (req.user.role !== "admin" && req.user.id !== parseInt(id)) {
+    if (req.userRole !== "admin" && req.userId !== parseInt(id)) {
       return res.status(403).json({
         status: "error",
         message: "Access denied",
@@ -182,7 +183,7 @@ export const updateUserPassword = async (req, res) => {
       });
     }
 
-    if (req.user.role !== "admin" && req.user.id !== parseInt(id)) {
+    if (req.userRole !== "admin" && req.userId !== parseInt(id)) {
       return res.status(403).json({
         status: "error",
         message: "Access denied",
@@ -225,7 +226,7 @@ export const deleteUser = async (req, res) => {
       });
     }
 
-    if (req.user.role !== "admin" && req.user.id !== parseInt(id)) {
+    if (req.userRole !== "admin" && req.userId !== parseInt(id)) {
       return res.status(403).json({
         status: "error",
         message: "Access denied",

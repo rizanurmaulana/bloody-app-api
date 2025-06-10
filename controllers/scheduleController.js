@@ -1,9 +1,11 @@
 import Schedule from "../models/Schedule.js";
 import User from "../models/User.js";
+import UserDetail from "../models/UserDetail.js";
 
 export const createSchedule = async (req, res) => {
-  const { pmi_id, location, date, start_time, end_time, quota, status, image } =
+  const { location, date, start_time, end_time, quota, status, image } =
     req.body;
+  const pmi_id = req.userId;
 
   const imagePath = req.file ? req.file.filename : null;
 
@@ -51,7 +53,13 @@ export const getAllSchedules = async (req, res) => {
           as: "pmi",
           attributes: ["id", "fullname", "role"],
           where: { role: "pmi" },
-          required: true, // memastikan hanya yang relasi PMI valid
+          required: true,
+          include: [
+            {
+              model: UserDetail,
+              attributes: ["image"],
+            },
+          ],
         },
       ],
     });
@@ -80,9 +88,15 @@ export const getScheduleById = async (req, res) => {
         {
           model: User,
           as: "pmi",
-          attributes: ["id", "fullname", "role"],
+          attributes: ["id", "fullname", "role"], // tanpa image di sini
           where: { role: "pmi" },
           required: true,
+          include: [
+            {
+              model: UserDetail,
+              attributes: ["image"], // ambil field image dari UserDetail
+            },
+          ],
         },
       ],
     });
