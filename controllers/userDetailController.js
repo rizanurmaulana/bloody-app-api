@@ -1,3 +1,4 @@
+import User from "../models/User.js";
 import UserDetail from "../models/UserDetail.js";
 
 export const createUserDetail = async (req, res) => {
@@ -48,7 +49,14 @@ export const createUserDetail = async (req, res) => {
 
 export const getAllUserDetails = async (req, res) => {
   try {
-    const user_details = await UserDetail.findAll();
+    const user_details = await UserDetail.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ["fullname", "email", "phone", "role"],
+        },
+      ],
+    });
 
     res.status(200).json({
       status: "success",
@@ -65,13 +73,19 @@ export const getAllUserDetails = async (req, res) => {
 };
 
 export const getUserDetailById = async (req, res) => {
-  // const { id } = req.params;
   const userId = req.userId;
 
   try {
     const user_detail = await UserDetail.findOne({
       where: { user_id: userId },
+      include: [
+        {
+          model: User,
+          attributes: ["fullname", "email", "phone", "role"],
+        },
+      ],
     });
+
     if (!user_detail) {
       return res.status(404).json({
         status: "error",

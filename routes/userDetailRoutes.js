@@ -21,7 +21,7 @@ router.get(
 );
 
 router.get(
-  "/user_detail/:user_id",
+  "/user_detail/me",
   authMiddleware.authenticate,
   authMiddleware.authorizeRole(["admin", "pmi", "donor"]),
   userDetailController.getUserDetailById
