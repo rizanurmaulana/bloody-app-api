@@ -17,11 +17,11 @@ const UserDetail = sequelize.define(
     },
     gender: {
       type: DataTypes.ENUM("L", "P"),
-      allowNull: false,
+      allowNull: true,
     },
     birthdate: {
       type: DataTypes.DATEONLY,
-      allowNull: false,
+      allowNull: true,
     },
     blood_type: {
       type: DataTypes.STRING,
@@ -29,7 +29,7 @@ const UserDetail = sequelize.define(
     },
     weight: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     status: {
       type: DataTypes.STRING,
@@ -46,7 +46,7 @@ const UserDetail = sequelize.define(
     },
     total_donations: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       defaultValue: 0,
     },
     image: {

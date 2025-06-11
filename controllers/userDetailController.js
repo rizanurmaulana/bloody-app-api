@@ -2,10 +2,7 @@ import User from "../models/User.js";
 import UserDetail from "../models/UserDetail.js";
 
 export const createUserDetail = async (req, res) => {
-  const userId = req.userId;
-
   const {
-    user_id,
     gender,
     birthdate,
     blood_type,
@@ -17,11 +14,30 @@ export const createUserDetail = async (req, res) => {
     image,
   } = req.body;
 
+  const { user_id } = req.body; // Ubah dari params ke body
+
+  // Validasi input
+  if (!user_id) {
+    return res.status(400).json({
+      status: "error",
+      message: "User ID is required",
+    });
+  }
+
   const imagePath = req.file ? req.file.filename : null;
 
   try {
+    // Verifikasi user exists
+    const user = await User.findByPk(user_id);
+    if (!user) {
+      return res.status(404).json({
+        status: "error",
+        message: "User not found",
+      });
+    }
+
     const user_detail = await UserDetail.create({
-      user_id: userId,
+      user_id: user_id,
       gender,
       birthdate,
       blood_type,
@@ -73,11 +89,27 @@ export const getAllUserDetails = async (req, res) => {
 };
 
 export const getUserDetailById = async (req, res) => {
-  const userId = req.userId;
+  const { user_id } = req.body;
+
+  if (!user_id) {
+    return res.status(400).json({
+      status: "error",
+      message: "User ID is required",
+    });
+  }
 
   try {
+    // Verifikasi user exists
+    const user = await User.findByPk(user_id);
+    if (!user) {
+      return res.status(404).json({
+        status: "error",
+        message: "User not found",
+      });
+    }
+
     const user_detail = await UserDetail.findOne({
-      where: { user_id: userId },
+      where: { user_id: user_id },
       include: [
         {
           model: User,
