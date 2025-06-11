@@ -3,6 +3,7 @@ import UserDetail from "../models/UserDetail.js";
 
 export const createUserDetail = async (req, res) => {
   const {
+    user_id,
     gender,
     birthdate,
     blood_type,
@@ -13,8 +14,6 @@ export const createUserDetail = async (req, res) => {
     total_donations,
     image,
   } = req.body;
-
-  const { user_id } = req.body; // Ubah dari params ke body
 
   // Validasi input
   if (!user_id) {
@@ -37,16 +36,16 @@ export const createUserDetail = async (req, res) => {
     }
 
     const user_detail = await UserDetail.create({
-      user_id: user_id,
-      gender,
-      birthdate,
-      blood_type,
-      weight,
-      status: "active",
+      user_id,
+      gender: gender || null,
+      birthdate: birthdate || null,
+      blood_type: blood_type || null,
+      weight: weight || null,
+      status: status || "active",
       address,
-      last_donation_date,
-      total_donations: 0,
-      image: imagePath,
+      last_donation_date: last_donation_date || null,
+      total_donations: total_donations || 0,
+      image: imagePath || null,
     });
 
     res.status(201).json({
