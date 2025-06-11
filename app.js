@@ -18,34 +18,29 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const init = async () => {
+app.use("/api/v1", authRoutes);
+app.use("/api/v1", userRoutes);
+app.use("/api/v1", scheduleRoutes);
+app.use("/api/v1", articleRoutes);
+app.use("/api/v1", userDetailRoutes);
+app.use("/api/v1", registrationRoutes);
+
+app.get("/", (req, res) => {
+  res.send("Hello from Express");
+});
+
+app.listen(PORT, HOST, async () => {
+  console.log(`Server is running at http://${HOST}:${PORT}`);
+
   try {
     await sequelize.authenticate();
     console.log("Connected to the database.");
     await sequelize.sync();
     console.log("Database & tables created!");
-
-    app.use("/api/v1", authRoutes);
-    app.use("/api/v1", userRoutes);
-    app.use("/api/v1", scheduleRoutes);
-    app.use("/api/v1", articleRoutes);
-    app.use("/api/v1", userDetailRoutes);
-    app.use("/api/v1", registrationRoutes);
-
-    app.get("/", (req, res) => {
-      res.send("Hello from Express");
-    });
-
-    app.listen(PORT, HOST, () => {
-      console.log(`Server is running at http://${HOST}:${PORT}`);
-    });
   } catch (error) {
     console.error("Unable to connect to the database:", error);
   }
-};
-
-init();
+});
