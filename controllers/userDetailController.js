@@ -89,27 +89,11 @@ export const getAllUserDetails = async (req, res) => {
 };
 
 export const getUserDetailById = async (req, res) => {
-  const { user_id } = req.body;
-
-  if (!user_id) {
-    return res.status(400).json({
-      status: "error",
-      message: "User ID is required",
-    });
-  }
+  const userId = req.userId;
 
   try {
-    // Verifikasi user exists
-    const user = await User.findByPk(user_id);
-    if (!user) {
-      return res.status(404).json({
-        status: "error",
-        message: "User not found",
-      });
-    }
-
     const user_detail = await UserDetail.findOne({
-      where: { user_id: user_id },
+      where: { user_id: userId },
       include: [
         {
           model: User,
